@@ -8,6 +8,7 @@ import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 
 @Entity
@@ -17,6 +18,7 @@ import lombok.*;
 @Setter
 @ToString
 @Builder
+//@SuperBuilder
 public class Product {
     @Id
     @GeneratedValue
