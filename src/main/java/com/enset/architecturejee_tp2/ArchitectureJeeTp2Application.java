@@ -13,7 +13,8 @@ public class ArchitectureJeeTp2Application {
     public static void main(String[] args) {
         SpringApplication.run(ArchitectureJeeTp2Application.class, args);
     }
-
+//Update the lomboc becasue for somereason it wont work
+//Also add a Password becasue its also require because of springSecurity I think
     @Bean
     public CommandLineRunner commandLineRunner(ProductRepository productRepository ) {
         return args -> {
