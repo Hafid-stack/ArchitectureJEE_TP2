@@ -34,6 +34,7 @@ public class SecurityConfig {
                     .authorizeHttpRequests(ar-> ar.requestMatchers("/user/**").hasRole("USER"))
                     .authorizeHttpRequests(ar->ar.requestMatchers("/public/**").permitAll())
                     .authorizeHttpRequests(ar -> ar.anyRequest().authenticated())
+                    .exceptionHandling(er-> er.accessDeniedPage("/notAuthorized"))
                     .build();
         }
         @Bean

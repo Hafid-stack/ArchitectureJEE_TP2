@@ -78,4 +78,9 @@ public class ProductController {
         // Return the name of the template
         return "edit-product";
     }
+
+    @GetMapping("/notAuthorized")
+    public String notAuthorized() {
+        return "/notAuthorized";
+    }
 }
