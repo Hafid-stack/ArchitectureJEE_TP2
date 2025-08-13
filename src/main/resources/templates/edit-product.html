@@ -15,7 +15,7 @@
 </head>
 <body>
 <div class="p-3" layout:fragment="content1">
-    <form method="post" th:action="@{/editProduct}" th:object="${product}">
+    <form method="post" th:action="@{/admin/editProduct}" th:object="${product}">
         <input type="hidden" th:field="*{id}" />
 
         <div class="mb-3">

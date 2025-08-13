@@ -20,7 +20,7 @@ public class ProductController {
     public ProductController(ProductRepository productRepository) {
         this.productRepository = productRepository;
     }
-    @GetMapping("/index")
+    @GetMapping("/user/index")
     public String index(Model model) {
         List<Product> products=productRepository.findAll();
         model.addAttribute("products", products);
@@ -29,32 +29,32 @@ public class ProductController {
     }
 
     @GetMapping("/")
-    public String index() {
+    public String home() {
 
-        return "redirect:/index";
+        return "redirect:/user/index";
     }
 
 
-    @GetMapping("/delete")
+    @GetMapping("/admin/delete")
     public String delete(@RequestParam(name="id") Long id) {
         productRepository.deleteById( id);
-        return "redirect:/index";
+        return "redirect:/user/index";
     }
-    @GetMapping("/newProduct")
+    @GetMapping("/admin/newProduct")
     public String newProduct(Model model) {
         model.addAttribute("product", new Product());
         return "new-product";
 
     }
-    @PostMapping("/saveProduct")
+    @PostMapping("/admin/saveProduct")
     public String saveProduct(@Valid Product product, BindingResult bindingResult,Model model) {
         if (bindingResult.hasErrors()) {
             return "new-product";
         }
         productRepository.save(product);
-        return "redirect:/index";
+        return "redirect:/user/index";
     }
-    @PostMapping("/editProduct")
+    @PostMapping("/admin/editProduct")
     public String editProduct(@Valid Product product, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "edit-product"; // Return to the same edit page on error
@@ -65,9 +65,9 @@ public class ProductController {
         // The save method will update the existing product because the ID is present.
         productRepository.save(product);
 
-        return "redirect:/index";
+        return "redirect:/user/index";
     }
-    @GetMapping("/editProduct")
+    @GetMapping("/admin/editProduct")
     public String editProduct(@RequestParam("id") Long id, Model model) {
         // Fetch the product from the database
         Product product = productRepository.findById(id).orElse(null);
