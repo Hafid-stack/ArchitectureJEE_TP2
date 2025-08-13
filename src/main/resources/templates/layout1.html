@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang="en"
       xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
-<!--we are using layout here-->
-<!--we will add security later-->
-<!--    xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"-->
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
     <meta charset="UTF-8">
     <title>Layout1</title>
     <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/5.3.5/css/bootstrap.min.css">
+<!--    <script th:src="@{/webjars/bootstrap/5.3.5/js/bootstrap.bundle.min.js}"></script>-->
+    <script src="/webjars/bootstrap/5.3.5/js/bootstrap.bundle.js"></script>
 </head>
 <body>
 <nav class="navbar navbar-expand-lg bg-body-tertiary"  data-bs-theme="dark">
@@ -40,10 +40,18 @@
                     <a class="nav-link disabled" aria-disabled="true">Disabled</a>
                 </li>
             </ul>
-            <form class="d-flex" role="search">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
-                <button class="btn btn-outline-success" type="submit">Search</button>
-            </form>
+
+            <ul class="navbar-nav">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="logoutbar" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <span sec:authentication="name"></span>
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="logoutbar">
+                        <li><a class="dropdown-item" th:href="@{/logout}">LogOut</a></li>
+
+                    </ul>
+                </li>
+            </ul>
         </div>
     </div>
 </nav>
