@@ -36,11 +36,20 @@
             <td th:text="${product.name}"></td>
             <td th:text="${product.price}"></td>
             <td th:text="${product.quantity}"></td>
+
+<!--            delete button-->
             <td sec:authorize="hasRole('ADMIN')">
-                <a class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this product? This action is irreversible.')"
-                   th:href="@{/admin/delete(id=${product.id})} "> Delete </a>
+                <form th:action="@{/admin/delete(id=${product.id})}" method="post">
+                    <button type="submit" class="btn btn-danger"> Delete</button>
+                </form>
+<!--                <a class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this product? This action is irreversible.')"-->
+<!--                   th:href="@{/admin/delete(id=${product.id})} "> Delete </a>-->
             </td>
+
+<!--            edit button-->
             <td sec:authorize="hasRole('ADMIN')">
+
+
                 <a class="btn btn-warning "
                    th:href="@{/admin/editProduct(id=${product.id})}">Edit</a>
 

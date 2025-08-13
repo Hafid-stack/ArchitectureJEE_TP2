@@ -3,10 +3,12 @@ package com.enset.architecturejee_tp2.web;
 
 import com.enset.architecturejee_tp2.entities.Product;
 import com.enset.architecturejee_tp2.repository.ProductRepository;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -35,7 +37,7 @@ public class ProductController {
     }
 
 
-    @GetMapping("/admin/delete")
+    @PostMapping("/admin/delete")
     public String delete(@RequestParam(name="id") Long id) {
         productRepository.deleteById( id);
         return "redirect:/user/index";
@@ -82,5 +84,14 @@ public class ProductController {
     @GetMapping("/notAuthorized")
     public String notAuthorized() {
         return "/notAuthorized";
+    }
+    @GetMapping("/login")
+    public String login() {
+        return "/login";
+    }
+    @GetMapping("/logout")
+    public String logout(HttpSession session) {
+        session.invalidate();
+        return "/login";
     }
 }
