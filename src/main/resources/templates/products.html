@@ -3,11 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <title> Products</title>
+    <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/5.3.5/css/bootstrap.min.css">
 </head>
 <body>
 <h1> Products </h1>
-<div>
-    <table>
+<div class="p-3">
+    <table class="table">
         <thead>
         <tr>
             <th>Product ID</th>
@@ -23,7 +24,11 @@
             <td th:text="${product.name}"></td>
             <td th:text="${product.price}"></td>
             <td th:text="${product.quantity}"></td>
+            <td>
+                <a class="btn btn-danger" th:href="@{/delete(id=${product.id})} "> Delete </a>
+            </td>
         </tr>
+
         </tbody>
     </table>
 </div>
