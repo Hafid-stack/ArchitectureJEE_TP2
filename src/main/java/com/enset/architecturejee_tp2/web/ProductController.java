@@ -54,4 +54,28 @@ public class ProductController {
         productRepository.save(product);
         return "redirect:/index";
     }
+    @PostMapping("/editProduct")
+    public String editProduct(@Valid Product product, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "edit-product"; // Return to the same edit page on error
+        }
+
+        // Spring will automatically create and populate a new Product object from the form data,
+        // including the hidden ID field.
+        // The save method will update the existing product because the ID is present.
+        productRepository.save(product);
+
+        return "redirect:/index";
+    }
+    @GetMapping("/editProduct")
+    public String editProduct(@RequestParam("id") Long id, Model model) {
+        // Fetch the product from the database
+        Product product = productRepository.findById(id).orElse(null);
+
+        // Add the product to the model
+        model.addAttribute("product", product);
+
+        // Return the name of the template
+        return "edit-product";
+    }
 }
