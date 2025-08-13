@@ -5,6 +5,7 @@ import com.enset.architecturejee_tp2.entities.Product;
 import com.enset.architecturejee_tp2.repository.ProductRepository;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -23,6 +24,7 @@ public class ProductController {
         this.productRepository = productRepository;
     }
     @GetMapping("/user/index")
+    @PreAuthorize("hasRole('USER')")
     public String index(Model model) {
         List<Product> products=productRepository.findAll();
         model.addAttribute("products", products);
@@ -38,17 +40,20 @@ public class ProductController {
 
 
     @PostMapping("/admin/delete")
+    @PreAuthorize("hasRole('ADMIN')")
     public String delete(@RequestParam(name="id") Long id) {
         productRepository.deleteById( id);
         return "redirect:/user/index";
     }
     @GetMapping("/admin/newProduct")
+    @PreAuthorize("hasRole('ADMIN')")
     public String newProduct(Model model) {
         model.addAttribute("product", new Product());
         return "new-product";
 
     }
     @PostMapping("/admin/saveProduct")
+    @PreAuthorize("hasRole('ADMIN')")
     public String saveProduct(@Valid Product product, BindingResult bindingResult,Model model) {
         if (bindingResult.hasErrors()) {
             return "new-product";
@@ -57,6 +62,7 @@ public class ProductController {
         return "redirect:/user/index";
     }
     @PostMapping("/admin/editProduct")
+    @PreAuthorize("hasRole('ADMIN')")
     public String editProduct(@Valid Product product, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "edit-product"; // Return to the same edit page on error
@@ -70,6 +76,7 @@ public class ProductController {
         return "redirect:/user/index";
     }
     @GetMapping("/admin/editProduct")
+    @PreAuthorize("hasRole('ADMIN')")
     public String editProduct(@RequestParam("id") Long id, Model model) {
         // Fetch the product from the database
         Product product = productRepository.findById(id).orElse(null);
